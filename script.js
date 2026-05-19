@@ -143,7 +143,7 @@ document.querySelectorAll('.magnetic').forEach(btn => {
     const w = rect.height / 2;
     const x = e.clientX - rect.left - h;
     const y = e.clientY - rect.top - w;
-    btn.style.transform = \	ranslate(\px, \px)\;
+    btn.style.transform = `translate(${x * 0.3}px, ${y * 0.5}px)`;
   });
   btn.addEventListener('mouseleave', () => {
     btn.style.transform = 'translate(0px, 0px)';
@@ -156,22 +156,25 @@ document.querySelectorAll('.spotlight-card').forEach(card => {
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    card.style.setProperty('--mouse-x', \\px\);
-    card.style.setProperty('--mouse-y', \\px\);
+    card.style.setProperty('--mouse-x', `${x}px`);
+    card.style.setProperty('--mouse-y', `${y}px`);
   });
 });
 
-/* ===== WORD REVEAL LOGIC ===== */
+/* ===== SAFE TEXT REVEAL LOGIC ===== */
 document.querySelectorAll('.word-reveal').forEach(el => {
-  const words = el.innerText.split(' ');
-  el.innerHTML = '';
-  words.forEach((word, i) => {
-    const span = document.createElement('span');
-    span.className = 'text-word';
-    span.innerText = word + ' ';
-    span.style.transitionDelay = \\s\;
-    el.appendChild(span);
-  });
+  // Only apply to plain text elements to avoid breaking HTML structures
+  if (el.children.length === 0) {
+    const words = el.innerText.split(' ');
+    el.innerHTML = '';
+    words.forEach((word, i) => {
+      const span = document.createElement('span');
+      span.className = 'text-word';
+      span.innerText = word + ' ';
+      span.style.transitionDelay = `${i * 0.05}s`;
+      el.appendChild(span);
+    });
+  }
 });
 const wordObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
