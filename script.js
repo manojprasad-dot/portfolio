@@ -122,3 +122,64 @@ window.addEventListener('load', () => {
     }, 1000);
   }
 });
+
+
+/* ===== SCROLL PROGRESS INDICATOR ===== */
+const progressBar = document.createElement('div');
+progressBar.className = 'scroll-progress';
+document.body.appendChild(progressBar);
+window.addEventListener('scroll', () => {
+  const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+  const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const scrolled = (winScroll / height) * 100;
+  progressBar.style.width = scrolled + '%';
+});
+
+/* ===== MAGNETIC BUTTONS ===== */
+document.querySelectorAll('.magnetic').forEach(btn => {
+  btn.addEventListener('mousemove', (e) => {
+    const rect = btn.getBoundingClientRect();
+    const h = rect.width / 2;
+    const w = rect.height / 2;
+    const x = e.clientX - rect.left - h;
+    const y = e.clientY - rect.top - w;
+    btn.style.transform = \	ranslate(\px, \px)\;
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = 'translate(0px, 0px)';
+  });
+});
+
+/* ===== SPOTLIGHT EFFECT ===== */
+document.querySelectorAll('.spotlight-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    card.style.setProperty('--mouse-x', \\px\);
+    card.style.setProperty('--mouse-y', \\px\);
+  });
+});
+
+/* ===== WORD REVEAL LOGIC ===== */
+document.querySelectorAll('.word-reveal').forEach(el => {
+  const words = el.innerText.split(' ');
+  el.innerHTML = '';
+  words.forEach((word, i) => {
+    const span = document.createElement('span');
+    span.className = 'text-word';
+    span.innerText = word + ' ';
+    span.style.transitionDelay = \\s\;
+    el.appendChild(span);
+  });
+});
+const wordObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.querySelectorAll('.text-word').forEach(w => w.classList.add('visible'));
+      wordObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.word-reveal').forEach(el => wordObserver.observe(el));
+
