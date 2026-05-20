@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import polyline from "@mapbox/polyline";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import { Activity, Flame, Timer, Mountain, MapPin, Calendar, Footprints } from "lucide-react";
+import { Activity, Flame, Timer, Mountain, MapPin, Calendar, Footprints, TrendingUp } from "lucide-react";
 
 // Helper component to draw glowing cyber-maps from Strava data
 const RouteMap = ({ polylineStr }) => {
