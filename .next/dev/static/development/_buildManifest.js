@@ -1,6 +1,11 @@
 self.__BUILD_MANIFEST = {
   "__rewrites": {
-    "afterFiles": [],
+    "afterFiles": [
+      {
+        "source": "/",
+        "destination": "/index.html"
+      }
+    ],
     "beforeFiles": [],
     "fallback": []
   },
