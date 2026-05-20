@@ -69,7 +69,7 @@ export default function RunningPage() {
           
           setStats({ 
             totalDist: dist, 
-            totalElev: elev, 
+            totalElev: Math.round(elev), 
             totalTime: time, 
             calories: Math.floor((dist/1000) * 62), // Approx 62 calories per km
             longestRun: maxDist,
