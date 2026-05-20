@@ -160,28 +160,31 @@ export default function RunningPage() {
           </div>
 
           {/* Connected Spotify Music Player UI */}
-          <div className="bg-white/[0.02] border border-white/5 rounded-[2rem] p-6 md:p-10 backdrop-blur-3xl flex flex-col justify-between relative overflow-hidden group hover:border-orange-500/20 transition-colors">
+          <div className="bg-white/[0.02] border border-white/5 rounded-[2rem] p-6 md:p-10 backdrop-blur-3xl relative overflow-hidden group hover:border-orange-500/20 transition-colors flex flex-col">
             <div className="absolute inset-0 bg-gradient-to-t from-orange-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-            <div className="relative z-10">
+            <div className="relative z-10 flex-1 flex flex-col">
               <h3 className="text-sm font-bold tracking-widest mb-6 text-zinc-500 flex items-center gap-2 uppercase"><Music size={16} className="text-orange-500"/> Runner's High</h3>
               
-              <div className="w-full aspect-square rounded-[2rem] overflow-hidden mb-8 relative shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=600&auto=format&fit=crop" alt="Album Art" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                  <Play size={48} className="text-white fill-white drop-shadow-[0_0_20px_rgba(255,255,255,1)]" />
-                </div>
+              <div className="w-full flex-1 rounded-2xl overflow-hidden shadow-2xl relative">
+                {/* 
+                  Note: You provided a User Profile link, but Spotify requires a specific 
+                  Playlist, Album, or Track link to play music. 
+                  I put a high-energy Cyberpunk running playlist here by default to match your theme! 
+                  To change it, right click any of your playlists on Spotify -> Share -> Embed Playlist 
+                  and replace the src URL below.
+                */}
+                <iframe 
+                  style={{ borderRadius: '16px' }} 
+                  src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdOEFt9ZX0dh?utm_source=generator&theme=0" 
+                  width="100%" 
+                  height="100%" 
+                  frameBorder="0" 
+                  allowFullScreen="" 
+                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full"
+                ></iframe>
               </div>
-
-              <div className="text-center mb-8">
-                <h4 className="font-black text-2xl text-white tracking-tight mb-1">Cyber Trance Mix</h4>
-                <p className="text-zinc-500 text-sm tracking-widest uppercase">Active Session Playlist</p>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between text-zinc-400 px-6 relative z-10">
-              <Rewind size={24} className="hover:text-white cursor-pointer transition-colors" />
-              <Play size={36} className="text-white fill-white drop-shadow-[0_0_15px_rgba(255,255,255,0.5)] cursor-pointer hover:scale-110 transition-transform" />
-              <FastForward size={24} className="hover:text-white cursor-pointer transition-colors" />
             </div>
           </div>
         </div>
