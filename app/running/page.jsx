@@ -6,6 +6,7 @@ import polyline from "@mapbox/polyline";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Activity, Flame, Timer, Mountain, MapPin, Footprints, ChevronDown, Music, TrendingUp, Calendar, Zap, LayoutDashboard, Crown } from "lucide-react";
 import Lenis from "lenis";
+import RunnerMusic from "./RunnerMusic";
 
 // Custom Cyber-Map Component for glowing routes
 const RouteMap = ({ polylineStr, height = "h-40" }) => {
@@ -350,6 +351,9 @@ export default function RunningPage() {
           </div>
         </div>
       </section>
+
+      {/* SOUNDTRACK EXPERIENCE */}
+      <RunnerMusic />
 
       {/* 5. PHILOSOPHY & FOOTER */}
       <section className="py-40 px-6 relative z-10 text-center bg-gradient-to-b from-transparent via-orange-950/20 to-[#050505]">
