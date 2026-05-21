@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Running Journey | Manoj Prasad A</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              accent: '#2563ff'
+            },
+            dark: {
+              100: '#1a1a1a',
+              200: '#111111',
+              300: '#0a0a0a',
+              400: '#000000'
+            }
+          },
+          fontFamily: {
+            mono: ['Space Grotesk', 'monospace'],
+            sans: ['Inter', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- React & ReactDOM -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  
+  <!-- Framer Motion -->
+  <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+
+  <!-- Babel for JSX -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+    body {
+      background-color: #000000;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      margin: 0;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0a0a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #2563ff;
+      border-radius: 4px;
+    }
+
+    .glass-card {
+      background: rgba(17, 17, 17, 0.6);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .glass-card:hover {
+      border-color: rgba(37, 99, 255, 0.4);
+      box-shadow: 0 0 20px rgba(37, 99, 255, 0.15);
+      transform: translateY(-2px);
+    }
+    
+    .neon-text {
+      text-shadow: 0 0 15px rgba(37, 99, 255, 0.5);
+    }
+    
+    .timeline-line {
+      position: absolute;
+      left: 11px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #2563ff 0%, rgba(37, 99, 255, 0) 100%);
+    }
+
+    .hud-typing::after {
+      content: '';
+      display: inline-block;
+      width: 8px;
+      height: 1em;
+      background: #2563ff;
+      margin-left: 4px;
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    /* Floating map path glow */
+    .path-glow {
+      filter: drop-shadow(0 0 8px #2563ff);
+    }
+    
+    /* Cyber gradient text */
+    .cyber-gradient {
+      background: linear-gradient(to right, #ffffff, #88aaff, #2563ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+    const { motion, useScroll, useTransform, AnimatePresence } = window.Motion;
+
+    // --- Mock Data ---
+    const MOCK_STRAVA_STATS = {
+      totalDistance: "1,245 km",
+      weeklyMileage: "34 km",
+      avgPace: "5:15 /km",
+      calories: "84,200",
+      streak: "14 Days",
+      elevationGain: "12,400 m"
+    };
+
+    const MOCK_ACTIVITIES = [
+      { id: 1, date: "May 18, 2026", title: "Evening Cyber Run", distance: "10.5 km", time: "55:20", pace: "5:16 /km" },
+      { id: 2, date: "May 16, 2026", title: "Endurance Protocol", distance: "15.0 km", time: "1:20:10", pace: "5:20 /km" },
+      { id: 3, date: "May 14, 2026", title: "Speed Fetch V2", distance: "5.0 km", time: "24:15", pace: "4:51 /km" }
+    ];
+
+    const MOCK_GALLERY = [
+      "https://images.unsplash.com/photo-1552674605-15c21f3cbce4?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1530143311094-34d807799e8f?auto=format&fit=crop&q=80&w=800",
+      "https://images.unsplash.com/photo-1502224562085-639556652f33?auto=format&fit=crop&q=80&w=800"
+    ];
+
+    // --- Components ---
+
+    const Navbar = () => (
+      <nav className="fixed top-0 left-0 right-0 z-50 px-6 py-4 backdrop-blur-md bg-dark-400/80 border-b border-white/5">
+        <div className="max-w-7xl mx-auto flex justify-between items-center">
+          <a href="index.html" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2563ff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            <span className="font-mono text-sm tracking-widest text-[#2563ff]">BACK TO PORTFOLIO</span>
+          </a>
+          <a href="https://strava.app.link/lYuJbrXxk3b" target="_blank" rel="noreferrer" className="flex items-center gap-2 px-4 py-2 rounded-full border border-[#fc4c02] text-[#fc4c02] hover:bg-[#fc4c02]/10 transition-colors font-mono text-sm">
+            STRAVA PROFILE
+          </a>
+        </div>
+      </nav>
+    );
+
+    const Hero = () => {
+      return (
+        <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+          {/* Background Elements */}
+          <div className="absolute inset-0 z-0">
+            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-accent/20 rounded-full blur-[120px]"></div>
+            <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-cyan-500/10 rounded-full blur-[100px]"></div>
+          </div>
+
+          <div className="z-10 text-center px-4 max-w-4xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <div className="inline-block mb-4 px-4 py-1.5 rounded-full border border-brand-accent/30 bg-brand-accent/10 font-mono text-sm text-brand-400 tracking-widest uppercase shadow-[0_0_15px_rgba(37,99,255,0.2)]">
+                Discipline • Endurance • Consistency
+              </div>
+            </motion.div>
+            
+            <motion.h1 
+              className="text-6xl md:text-8xl font-bold mb-6 font-sans tracking-tight cyber-gradient"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, delay: 0.2 }}
+            >
+              Running<br/>Beyond Limits
+            </motion.h1>
+            
+            <motion.p 
+              className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-mono"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.4 }}
+            >
+              Mastering the physical realm with the same precision and relentless focus as breaking complex cybersecurity architectures.
+            </motion.p>
+          </div>
+        </section>
+      );
+    };
+
+    const StatCard = ({ title, value, delay }) => (
+      <motion.div 
+        className="glass-card p-6"
+        initial={{ opacity: 0, Math: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay, duration: 0.5 }}
+      >
+        <p className="text-gray-400 text-sm font-mono uppercase tracking-wider mb-2">{title}</p>
+        <h3 className="text-3xl font-bold text-white neon-text">{value}</h3>
+      </motion.div>
+    );
+
+    const Dashboard = () => {
+      return (
+        <section className="py-24 px-6 relative z-10">
+          <div className="max-w-7xl mx-auto">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="mb-12"
+            >
+              <h2 className="text-3xl font-bold font-sans flex items-center gap-3">
+                <span className="w-8 h-1 bg-brand-accent rounded"></span>
+                Performance Metrics
+              </h2>
+            </motion.div>
+
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
+              {Object.entries(MOCK_STRAVA_STATS).map(([key, val], idx) => (
+                <StatCard 
+                  key={key} 
+                  title={key.replace(/([A-Z])/g, ' $1').trim()} 
+                  value={val} 
+                  delay={0.1 * idx} 
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const ProgressCircle = ({ percentage, label, delay }) => {
+      return (
+        <motion.div 
+          className="flex flex-col items-center gap-4"
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay, duration: 0.5 }}
+        >
+          <div className="relative w-32 h-32 flex items-center justify-center">
+            <svg className="absolute inset-0 w-full h-full transform -rotate-90">
+              <circle cx="64" cy="64" r="60" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="4" />
+              <motion.circle 
+                cx="64" 
+                cy="64" 
+                r="60" 
+                fill="none" 
+                stroke="#2563ff" 
+                strokeWidth="4"
+                strokeLinecap="round"
+                initial={{ strokeDasharray: "377", strokeDashoffset: "377" }}
+                whileInView={{ strokeDashoffset: 377 - (377 * percentage) / 100 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, delay: delay + 0.2 }}
+                className="drop-shadow-[0_0_8px_rgba(37,99,255,0.5)]"
+              />
+            </svg>
+            <span className="text-2xl font-bold font-mono">{percentage}%</span>
+          </div>
+          <span className="text-sm text-gray-400 font-mono tracking-wider">{label}</span>
+        </motion.div>
+      );
+    };
+
+    const Analytics = () => (
+      <section className="py-24 px-6 bg-dark-200/30 relative z-10 border-y border-white/5">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <ProgressCircle percentage={85} label="DISTANCE" delay={0} />
+            <ProgressCircle percentage={92} label="ENDURANCE" delay={0.2} />
+            <ProgressCircle percentage={78} label="SPEED" delay={0.4} />
+            <ProgressCircle percentage={96} label="CONSISTENCY" delay={0.6} />
+          </div>
+        </div>
+      </section>
+    );
+
+    const Timeline = () => {
+      return (
+        <section className="py-24 px-6 relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl font-bold font-sans mb-12 flex items-center gap-3">
+              <span className="w-8 h-1 bg-brand-accent rounded"></span>
+              Activity Log
+            </h2>
+            
+            <div className="relative pl-8">
+              <div className="timeline-line"></div>
+              {MOCK_ACTIVITIES.map((act, idx) => (
+                <motion.div 
+                  key={act.id}
+                  className="relative mb-10 pl-6 group"
+                  initial={{ opacity: 0, x: -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.2 }}
+                >
+                  <div className="absolute left-[-29px] top-1.5 w-3 h-3 rounded-full bg-brand-accent dot transition-transform group-hover:scale-150"></div>
+                  <div className="glass-card p-6">
+                    <p className="text-brand-400 font-mono text-sm mb-1">{act.date}</p>
+                    <h4 className="text-xl font-bold mb-4">{act.title}</h4>
+                    <div className="flex gap-6 text-sm text-gray-300 font-mono">
+                      <span>{act.distance}</span>
+                      <span>{act.time}</span>
+                      <span>{act.pace}</span>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const CyberHUD = () => {
+      return (
+        <section className="py-24 px-6 relative z-10 overflow-hidden">
+          <div className="max-w-5xl mx-auto">
+            <motion.div 
+              className="glass-card p-8 md:p-12 relative border-brand-accent/20"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-brand-accent to-transparent opacity-50"></div>
+              
+              <div className="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                  <h2 className="text-2xl font-mono text-brand-400 mb-6">SYSTEM_STATUS: <span className="text-white hud-typing">ONLINE</span></h2>
+                  <div className="space-y-4 font-mono text-sm">
+                    <div className="flex justify-between border-b border-white/10 pb-2">
+                      <span className="text-gray-400">DISCIPLINE_MODULE</span>
+                      <span className="text-brand-400">ACTIVE</span>
+                    </div>
+                    <div className="flex justify-between border-b border-white/10 pb-2">
+                      <span className="text-gray-400">ENDURANCE_LEVEL</span>
+                      <span className="text-brand-400">HIGH</span>
+                    </div>
+                    <div className="flex justify-between border-b border-white/10 pb-2">
+                      <span className="text-gray-400">CONSISTENCY_RATE</span>
+                      <span className="text-brand-400">STABLE</span>
+                    </div>
+                    <div className="flex justify-between pt-2">
+                      <span className="text-gray-400">HUMAN_PERFORMANCE</span>
+                      <span className="text-green-400 font-bold tracking-widest drop-shadow-[0_0_5px_rgba(74,222,128,0.8)]">OPTIMIZED</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="relative h-64 flex items-center justify-center">
+                  {/* Radar animation placeholder */}
+                  <motion.div 
+                    className="absolute w-48 h-48 rounded-full border border-brand-accent/30 border-dashed"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  />
+                  <div className="absolute w-32 h-32 rounded-full border border-brand-accent/50" />
+                  <motion.div 
+                    className="absolute w-16 h-16 rounded-full bg-brand-accent/20 blur-xl"
+                    animate={{ scale: [1, 1.2, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                  />
+                  <div className="w-16 h-16 rounded-full border-2 border-brand-accent flex items-center justify-center shadow-[0_0_20px_rgba(37,99,255,0.4)]">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+      );
+    };
+
+    const Gallery = () => {
+      return (
+        <section className="py-24 px-6 relative z-10 bg-dark-200/50">
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-3xl font-bold font-sans mb-12 flex items-center gap-3">
+              <span className="w-8 h-1 bg-brand-accent rounded"></span>
+              Visual Logs
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {MOCK_GALLERY.map((img, idx) => (
+                <motion.div 
+                  key={idx}
+                  className="rounded-xl overflow-hidden glass-card group cursor-pointer h-64 md:h-80"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                >
+                  <img 
+                    src={img} 
+                    alt="Run" 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100" 
+                  />
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    const App = () => {
+      return (
+        <div className="bg-dark-400 text-white min-h-screen selection:bg-brand-accent selection:text-white">
+          <Navbar />
+          <Hero />
+          <Dashboard />
+          <Analytics />
+          <Timeline />
+          <Gallery />
+          <CyberHUD />
+          
+          <footer className="text-center py-8 font-mono text-xs text-gray-500 border-t border-white/5 mt-20">
+            <p>DATA SECURED // RUNNING LOG ACTIVATED</p>
+          </footer>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
