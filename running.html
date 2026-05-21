@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manoj Prasad A - Running Journey & Endurance Tracking.">
+  <title>Running Journey |anoj Prasad A</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/images/logo-removebg-preview.png" type="image/png">
+  <style>
+    /* Specific Running Journey Styles */
+    .running-hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; padding-top: 100px; }
+    .particles-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; opacity: 0.5; background-image: radial-gradient(var(--accent-soft) 1px, transparent 1px); background-size: 50px 50px; animation: moveParticles 20s linear infinite; }
+    @keyframes moveParticles { 0% { background-position: 0 0; } 100% { background-position: 100px 100px; } }
+    .running-content { z-index: 1; text-align: center; max-width: 900px; }
+    
+    .hud-section { padding: 80px 0; background: var(--bg-secondary); position: relative; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .hud-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px; }
+    .radar-box { position: relative; width: 300px; height: 300px; border-radius: 50%; border: 2px solid var(--accent-glow); margin: 0 auto; overflow: hidden; background: rgba(37,99,255,0.05); }
+    .radar-box::before { content: ""; position: absolute; top: 0; left: 50%; width: 50%; height: 50%; background: linear-gradient(to right, transparent, var(--accent)); transform-origin: bottom left; animation: radarSpin 4s linear infinite; opacity: 0.5; }
+    .radar-box::after { content: ""; position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: var(--accent-glow); }
+    .radar-cross { position: absolute; top: 0; left: 50%; width: 1px; height: 100%; background: var(--accent-glow); }
+    .radar-rings { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 66%; height: 66%; border-radius: 50%; border: 1px solid var(--accent-glow); }
+    .radar-rings::after { content: ""; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 50%; height: 50%; border-radius: 50%; border: 1px solid var(--accent-glow); }
+    @keyframes radarSpin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    
+    .terminal-box { background: #000; border: 1px solid var(--border); border-radius: 8px; padding: 20px; font-family: var(--font-mono); color: var(--accent); position: relative; min-height: 250px; }
+    .terminal-box::before { content: "SYSTEM.HUD_ACTIVE"; position: absolute; top: -10px; left: 10px; background: var(--bg-secondary); padding: 0 10px; font-size: 0.75rem; border: 1px solid var(--border); border-radius: 4px; }
+    .typewriter-text { margin-bottom: 10px; white-space: nowrap; overflow: hidden; }
+    
+    .timeline { position: relative; max-width: 800px; margin: 0 auto; padding: 40px 0; }
+    .timeline::before { content: ""; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 2px; height: 100%; background: var(--border); }
+    .timeline-item { position: relative; width: 50%; padding: 20px 40px; }
+    .timeline-item:nth-child(odd) { left: 0; text-align: right; }
+    .timeline-item:nth-child(even) { left: 50%; text-align: left; }
+    .timeline-dot { position: absolute; top: 30px; width: 16px; height: 16px; border-radius: 50%; background: var(--bg-card); border: 2px solid var(--accent); box-shadow: 0 0 10px var(--accent); z-index: 2; }
+    .timeline-item:nth-child(odd) .timeline-dot { right: -8px; }
+    .timeline-item:nth-child(even) .timeline-dot { left: -8px; }
+
+    .heartbeat-line { width: 100%; height: 60px; display: flex; align-items: center; justify-content: center; margin-top: 20px; overflow: hidden; opacity: 0.8; }
+    .heartbeat-line svg { width: 200px; animation: pulseBeat 1.5s ease-in-out infinite; stroke: #ff3366; }
+    @keyframes pulseBeat { 0% { transform: scale(1); } 20% { transform: scale(1.1); filter: drop-shadow(0 0 8px #ff3366); } 40% { transform: scale(1); } 100% { transform: scale(1); } }
+    
+    .strava-embed-container { width: 100%; max-width: 600px; margin: 40px auto; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.5); border: 1px solid var(--border); transition: all 0.3s; }
+    .strava-embed-container:hover { border-color: var(--accent); box-shadow: 0 10px 40px var(--accent-glow); }
+    
+    @media (max-width: 768px) {
+      .hud-grid { grid-template-columns: 1fr; }
+      .timeline::before { left: 20px; }
+      .timeline-item { width: 100%; left: 0 !important; text-align: left !important; padding-left: 60px; }
+      .timeline-item:nth-child(odd) .timeline-dot, .timeline-item:nth-child(even) .timeline-dot { left: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="custom-cursor"></div>
+<div class="scroll-progress"></div>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo glitch-hover" style="display: flex; align-items: center;"><img src="assets/images/logo-removebg-preview.png" alt="Manoj. Logo" style="height: 40px; margin-top: 10px;"></a>
+  <ul class="nav-menu" id="navMenu">
+    <li><a href="index.html#services">Profile</a></li>
+    <li><a href="index.html#cases">Projects</a></li>
+    <li><a href="running.html" style="color: var(--text-primary);">Running</a></li>
+    <li><a href="index.html#contact">Contact</a></li>
+  </ul>
+  <a href="https://strava.app.link/w5I6Beo7g3b" target="_blank" rel="noopener" class="nav-cta magnetic" style="border-color: #fc4c02; color: #fc4c02;">Strava</a>
+  <div class="nav-hamburger" id="hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="running-hero">
+  <div class="particles-bg"></div>
+  <div class="running-content reveal visible">
+    <p class="section-label" style="margin-bottom: 20px;">// Human Performance Optimized</p>
+    <h1 class="hero-title">RUNNING BEYOND <br><span class="outline">LIMITS</span></h1>
+    <p class="contact-desc" style="margin-top: 20px;">Discipline. Endurance. Consistency. Mindset. Tracking my running journey and physical milestones wrapped in a cyber-physical dashboard.</p>
+    <div style="display: flex; gap: 16px; justify-content: center; margin-top: 30px; flex-wrap: wrap;">
+      <a href="#stats" class="hero-cta magnetic">View Stats</a>
+      <a href="https://strava.app.link/w5I6Beo7g3b" target="_blank" rel="noopener" class="hero-cta magnetic" style="background: transparent; border: 1px solid #fc4c02; box-shadow: none; color: #fc4c02;">Follow on Strava
+        <svg viewBox="0 0 24 24" fill="currentColor" stroke-width="2" style="width:16px; height:16px; margin-left: 8px;"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- HUD SECTION -->
+<section class="hud-section" id="stats">
+  <div class="container">
+    <div class="section-header reveal" style="text-align: center;">
+      <p class="section-label">// Cyber Fitness HUD</p>
+      <h2 class="section-title">PERFORMANCE <span class="outline">METRICS</span></h2>
+    </div>
+    
+    <div class="stats-grid" style="margin-bottom: 60px;">
+      <div class="stat-item reveal spotlight-card" style="padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card);">
+        <p class="stat-label">Endurance Level</p>
+        <div class="stat-number" style="font-size: 2.5rem; margin: 10px 0;"><span style="color: #fc4c02;">HIGH</span></div>
+        <p style="font-size: 0.75rem; color: var(--text-muted);">OPTIMIZED</p>
+      </div>
+      <div class="stat-item reveal spotlight-card reveal-delay-1" style="padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card);">
+        <p class="stat-label">Consistency Rate</p>
+        <div class="stat-number" style="font-size: 2.5rem; margin: 10px 0;"><span style="color: #fc4c02;">STABLE</span></div>
+        <p style="font-size: 0.75rem; color: var(--text-muted);">Uptime: 99.9%</p>
+      </div>
+      <div class="stat-item reveal spotlight-card reveal-delay-2" style="padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card);">
+        <p class="stat-label">Discipline</p>
+        <div class="stat-number" style="font-size: 2.5rem; margin: 10px 0;"><span style="color: #fc4c02;">ACTIVE</span></div>
+        <p style="font-size: 0.75rem; color: var(--text-muted);">SYSTEM NOMINAL</p>
+      </div>
+      <div class="stat-item reveal spotlight-card reveal-delay-3" style="padding: 20px; border: 1px solid var(--border); border-radius: 12px; background: var(--bg-card);">
+        <p class="stat-label">Total Distance</p>
+        <div class="stat-number" style="font-size: 2.5rem; margin: 10px 0;"><span style="color: #fc4c02;">SYNC</span></div>
+        <p style="font-size: 0.75rem; color: var(--text-muted);">via Strava Link</p>
+      </div>
+    </div>
+
+    <div class="hud-grid reveal">
+      <div class="terminal-box spotlight-card">
+        <div id="typewriter-container">
+          <!-- Text generated by JS -->
+        </div>
+        <div class="heartbeat-line" id="heartbeat" style="display: none;">
+          <svg viewBox="0 0 200 60" fill="none" stroke-width="2">
+            <polyline points="0,30 50,30 65,10 80,50 95,20 110,40 120,30 200,30" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+      
+      <div style="display:flex; justify-content: center; align-items: center;">
+        <div class="radar-box spotlight-card">
+          <div class="radar-cross"></div>
+          <div class="radar-rings"></div>
+          <div style="position: absolute; top: 40%; left: 60%; width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 15px var(--accent); animation: flash 2s infinite;"></div>
+          <div style="position: absolute; top: 70%; left: 30%; width: 6px; height: 6px; background: #fc4c02; border-radius: 50%; box-shadow: 0 0 15px #fc4c02; animation: flash 3s infinite;"></div>
+          <div style="position: absolute; top: 20%; left: 40%; width: 5px; height: 5px; background: #fc4c02; border-radius: 50%; box-shadow: 0 0 10px #fc4c02; animation: flash 1.5s infinite;"></div>
+          <style>@keyframes flash { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }</style>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RECENT ACTIVITIES & STRAVA EMBEDS -->
+<section class="section-padding" style="border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-header reveal" style="text-align: center;">
+      <h2 class="section-title">LATEST <span class="outline">RUNS</span></h2>
+      <p class="section-label" style="display: block; margin-top: 20px;">// LIVE TRACKING PREVIEWS</p>
+    </div>
+    
+    <div class="timeline">
+      <div class="timeline-item reveal spotlight-card">
+        <div class="timeline-dot"></div>
+        <div style="background: var(--bg-card); padding: 24px; border-radius: 12px; border: 1px solid var(--border);">
+          <h3 style="color: var(--accent); font-family: var(--font-mono); font-size: 0.9rem; margin-bottom: 10px;">ACTIVITY LOG</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">Review my most recent tracked runs, mapped paces, distances, and custom routes pushed seamlessly from my wearable device to my Strava profile.</p>
+        </div>
+      </div>
+      <div class="timeline-item reveal reveal-delay-1 spotlight-card">
+        <div class="timeline-dot"></div>
+        <div style="background: var(--bg-card); padding: 24px; border-radius: 12px; border: 1px solid var(--border);">
+          <h3 style="color: #fc4c02; font-family: var(--font-mono); font-size: 0.9rem; margin-bottom: 10px;">STRAVA SYNC OVERRIDE</h3>
+          <p style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6;">Due to browser security protocols, users must authenticate an external connection. Follow the official link to view the complete mapped GPS telemetry.</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- CTA FOR STRAVA -->
+    <div style="text-align: center; margin-top: 60px;" class="reveal">
+       <div class="strava-embed-container magnetic" style="padding: 40px 20px; background: rgba(252, 76, 2, 0.05); border-color: rgba(252, 76, 2, 0.3);">
+          <svg style="width: 50px; height: 50px; fill: #fc4c02; margin-bottom: 20px;" viewBox="0 0 24 24"><path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/></svg>
+          <h3 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 15px;">Follow My Journey</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 35px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6;">Unlock the full training log, detailed GPS routes, and runner analytics directly on my official Strava athlete page.</p>
+          <a href="https://strava.app.link/w5I6Beo7g3b" target="_blank" rel="noopener" class="contact-btn magnetic" style="background: #fc4c02; box-shadow: 0 0 30px rgba(252, 76, 2, 0.35);">
+            Connect on Strava
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+       </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px;">
+      <div class="footer-brand glitch-hover" style="max-width: 400px;">
+        <img src="assets/images/logo-removebg-preview.png" alt="Manoj. Logo" style="height: 50px; margin-bottom: 16px;">
+        <p>Cybersecurity student focused on phishing detection, network security, and physical endurance.</p>
+      </div>
+      <div class="footer-col" style="min-width: 150px;">
+        <h4>Main Map</h4>
+        <a href="index.html">Terminal Home</a>
+        <a href="index.html#cases">Cyber Projects</a>
+        <a href="index.html#contact">Transmission</a>
+      </div>
+      <div class="footer-col" style="min-width: 150px;">
+        <h4>Network</h4>
+        <a href="https://strava.app.link/w5I6Beo7g3b" target="_blank" rel="noopener">Strava Uplink</a>
+        <a href="https://github.com/manojprasad-dot" target="_blank" rel="noopener">GitHub Sync</a>
+        <a href="https://linkedin.com/in/manoj-prasad-92b2322b7" target="_blank" rel="noopener">LinkedIn Grid</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 Manoj Prasad A. All rights reserved.</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+  // Terminal Typewriter Effect Logic for Running Page
+  const lines = [
+    "> INITIALIZING BIOMETRIC SCAN...",
+    "> RUNNER: MANOJ PRASAD A.",
+    "> SYNCING WITH STRAVA SATELLITES...",
+    "> CONNECTION ESTABLISHED. DATA STREAM ONLINE."
+  ];
+  const container = document.getElementById("typewriter-container");
+  const heartbeat = document.getElementById("heartbeat");
+  
+  let lineIndex = 0;
+  
+  function typeLine() {
+    if (lineIndex < lines.length) {
+      const lineDiv = document.createElement("div");
+      lineDiv.className = "typewriter-text";
+      if (lineIndex === lines.length - 1) {
+        lineDiv.style.color = "#25D366"; // Success color for last line
+      }
+      container.appendChild(lineDiv);
+      
+      const text = lines[lineIndex];
+      let charIndex = 0;
+      
+      const typing = setInterval(() => {
+        if (charIndex < text.length) {
+          lineDiv.innerText += text.charAt(charIndex);
+          charIndex++;
+        } else {
+          clearInterval(typing);
+          lineIndex++;
+          setTimeout(typeLine, 800); // Wait before next line
+        }
+      }, 40); // speed
+    } else {
+      // Done typing, show heartbeat
+      setTimeout(() => {
+        heartbeat.style.display = "flex";
+      }, 500);
+    }
+  }
+  
+  // Start when scrolled into view
+  const termObserver = new IntersectionObserver((entries) => {
+    if(entries[0].isIntersecting) {
+        typeLine();
+        termObserver.disconnect();
+    }
+  });
+  termObserver.observe(document.querySelector(".terminal-box"));
+</script>
+</body>
+</html>
