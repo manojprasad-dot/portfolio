@@ -136,43 +136,18 @@ export default function RunnerMusic() {
                 {/* Glow Backdrop */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${playlist.color} rounded-[2rem] blur-xl opacity-30 transition-opacity duration-700 -z-10`} />
 
-                {/* Card Container Local Audio Player */}
-                <div className="relative h-full bg-white/[0.02] backdrop-blur-3xl border border-white/5 rounded-[2rem] p-6 flex flex-col justify-between transition-all duration-300 hover:border-orange-500/30">
+                {/* Card Container padding for iFrame */}
+                <div className="relative h-full bg-[#121212] backdrop-blur-3xl border border-white/5 rounded-3xl p-0 flex flex-col overflow-hidden transition-all duration-300 hover:border-orange-500/30">
                    
-                   {/* Visual Top Area */}
-                   <div>
-                     <div className={`w-16 h-16 rounded-2xl mb-6 flex items-center justify-center text-white ${playlist.coverPlaceholder} drop-shadow-2xl`}>
-                        {playlist.icon}
-                     </div>
-                     <h3 className="text-2xl font-black text-white mb-2">{playlist.title}</h3>
-                     <p className="text-zinc-400 text-sm font-medium mb-4">{playlist.type}</p>
-                     
-                     <div className="flex flex-wrap gap-2 mb-6">
-                        <span className="bg-white/5 text-white text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded">
-                          {playlist.intensity}
-                        </span>
-                        <span className="bg-orange-500/10 text-orange-500 text-[10px] font-bold uppercase tracking-widest px-2 py-1 rounded">
-                          {playlist.pace}
-                        </span>
-                     </div>
-                   </div>
-
-                   {/* Native Audio Control at the bottom */}
-                   <div className="w-full mt-auto">
-                     <p className="text-[10px] text-zinc-600 uppercase font-bold tracking-widest mb-2 pl-2">Track Preview</p>
-                     <div className="w-full bg-white/5 rounded-full px-2 py-1 border border-white/10">
-                       <audio 
-                         controls 
-                         className="w-full h-8 outline-none" 
-                         src="/raga.mp3" 
-                         controlsList="nodownload"
-                         style={{ 
-                           filter: 'invert(80%) hue-rotate(180deg) brightness(1.5)', 
-                           borderRadius: '999px' 
-                         }}
-                       ></audio>
-                     </div>
-                   </div>
+                   <iframe 
+                     style={{ borderRadius: '24px', border: 'none' }} 
+                     src={`https://open.spotify.com/embed/playlist/${playlist.id}?utm_source=generator&theme=0`} 
+                     width="100%" 
+                     height="100%" 
+                     allowFullScreen="" 
+                     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                     className="w-full h-full pointer-events-auto"
+                   ></iframe>
 
                 </div>
               </motion.div>
