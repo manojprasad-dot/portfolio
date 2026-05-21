@@ -377,7 +377,7 @@ export default function RunningPage() {
             "Every <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600">kilometer</span> builds <br /> discipline <span className="italic font-normal text-zinc-500">beyond fitness.</span>"
           </h2>
           <p className="text-orange-500 tracking-[0.2em] uppercase text-sm font-bold mb-20 drop-shadow-[0_0_10px_#f97316]">Discipline is built one run at a time.</p>
-          <a href="https://www.strava.com" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 bg-orange-600 hover:bg-orange-500 text-white px-10 py-5 rounded-full font-black uppercase tracking-[0.1em] transition-all hover:scale-110 shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:shadow-[0_0_60px_rgba(249,115,22,0.6)]">
+          <a href="https://strava.app.link/lYuJbrXxk3b" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 bg-orange-600 hover:bg-orange-500 text-white px-10 py-5 rounded-full font-black uppercase tracking-[0.1em] transition-all hover:scale-110 shadow-[0_0_40px_rgba(249,115,22,0.4)] hover:shadow-[0_0_60px_rgba(249,115,22,0.6)]">
             Connect on Strava <Activity size={24} />
           </a>
         </motion.div>
