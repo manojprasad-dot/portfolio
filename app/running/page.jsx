@@ -266,19 +266,34 @@ export default function RunningPage() {
               </div>
             )}
 
-            {/* Compact Spotify Player */}
-            <div className="bg-[#121212] border border-white/5 rounded-3xl p-4 backdrop-blur-3xl h-40 relative">
-               <iframe 
-                  style={{ borderRadius: '16px' }} 
-                  src="https://open.spotify.com/embed/playlist/37i9dQZF1DXdOEFt9ZX0dh?utm_source=generator&theme=0" 
-                  width="100%" 
-                  height="100%" 
-                  frameBorder="0" 
-                  allowFullScreen="" 
-                  allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                  loading="lazy"
-                  className="w-full h-full object-cover"
-                ></iframe>
+            {/* Custom Local Audio Player */}
+            <div className="bg-[#121212] border border-white/5 rounded-3xl p-6 backdrop-blur-3xl h-40 relative flex flex-col justify-center">
+               <div className="flex items-center gap-4 mb-4">
+                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white shadow-[0_0_20px_rgba(249,115,22,0.4)]">
+                    <Music size={24} />
+                  </div>
+                  <div className="flex-1 overflow-hidden">
+                    <h4 className="text-white font-bold text-lg truncate">Raga of Revenge</h4>
+                    <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">Downloaded Track</p>
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 animate-pulse">
+                     <span className="w-2 h-2 rounded-full bg-orange-500"></span>
+                  </div>
+               </div>
+               
+               {/* Native HTML5 Audio Player with styling container */}
+               <div className="w-full bg-white/5 rounded-full px-2 py-1">
+                 <audio 
+                   controls 
+                   className="w-full h-8 outline-none" 
+                   src="/raga.mp3" 
+                   controlsList="nodownload"
+                   style={{ 
+                     filter: 'invert(80%) hue-rotate(180deg) brightness(1.5)', 
+                     borderRadius: '999px' 
+                   }}
+                 ></audio>
+               </div>
             </div>
 
           </div>
