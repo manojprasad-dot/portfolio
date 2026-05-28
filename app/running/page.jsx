@@ -6,7 +6,6 @@ import polyline from "@mapbox/polyline";
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { Activity, Flame, Timer, Mountain, MapPin, Footprints, ChevronDown, Music, TrendingUp, Calendar, Zap, LayoutDashboard, Crown } from "lucide-react";
 import Lenis from "lenis";
-import RunnerMusic from "./RunnerMusic";
 
 // Custom Cyber-Map Component for glowing routes
 const RouteMap = ({ polylineStr, height = "h-40" }) => {
@@ -266,36 +265,6 @@ export default function RunningPage() {
               </div>
             )}
 
-            {/* Custom Local Audio Player */}
-            <div className="bg-[#121212] border border-white/5 rounded-3xl p-6 backdrop-blur-3xl h-40 relative flex flex-col justify-center">
-               <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center text-white shadow-[0_0_20px_rgba(249,115,22,0.4)]">
-                    <Music size={24} />
-                  </div>
-                  <div className="flex-1 overflow-hidden">
-                    <h4 className="text-white font-bold text-lg truncate">Raga of Revenge</h4>
-                    <p className="text-zinc-500 text-[10px] font-mono uppercase tracking-widest">Downloaded Track</p>
-                  </div>
-                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center border border-white/10 animate-pulse">
-                     <span className="w-2 h-2 rounded-full bg-orange-500"></span>
-                  </div>
-               </div>
-               
-               {/* Native HTML5 Audio Player with styling container */}
-               <div className="w-full bg-white/5 rounded-full px-2 py-1">
-                 <audio 
-                   controls 
-                   className="w-full h-8 outline-none" 
-                   src="/raga.mp3" 
-                   controlsList="nodownload"
-                   style={{ 
-                     filter: 'invert(80%) hue-rotate(180deg) brightness(1.5)', 
-                     borderRadius: '999px' 
-                   }}
-                 ></audio>
-               </div>
-            </div>
-
           </div>
         </div>
       </section>
@@ -368,7 +337,6 @@ export default function RunningPage() {
       </section>
 
       {/* SOUNDTRACK EXPERIENCE */}
-      <RunnerMusic />
 
       {/* 5. PHILOSOPHY & FOOTER */}
       <section className="py-40 px-6 relative z-10 text-center bg-gradient-to-b from-transparent via-orange-950/20 to-[#050505]">
