@@ -147,7 +147,6 @@ export default function RunningPage() {
 
         if (Array.isArray(data) && data.length > 0) {
           setRuns(data);
-
           const totalDist = data.reduce((sum, run) => sum + run.distance, 0);
           const totalElev = data.reduce(
             (sum, run) => sum + run.total_elevation_gain,
@@ -164,6 +163,9 @@ export default function RunningPage() {
             longestRun,
             avgPaceSecs: totalDist > 0 ? totalTime / (totalDist / 1000) : 0,
           });
+        } else {
+          setRuns([]);
+          setStats(defaultStats);
         }
 
         setStatus("ready");
@@ -193,8 +195,8 @@ export default function RunningPage() {
     return `${mins}'${seconds.toString().padStart(2, "0")}"`;
   };
 
-  const chartData = Array.isArray(runs)
-    ? runs
+    const chartData = Array.isArray(runs)
+      ? runs
         .slice(0, 15)
         .reverse()
         .map((run) => ({
@@ -351,12 +353,12 @@ export default function RunningPage() {
             }`}
           >
             <div className="flex items-center gap-2">
-              {status !== "error" && (
+              {status !== "error" ? (
                 <span className="relative flex h-3 w-3">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
                   <span className="relative inline-flex h-3 w-3 rounded-full bg-green-500" />
                 </span>
-              )}
+              ) : null}
               <span className="text-xs font-bold uppercase tracking-widest">
                 {status === "loading"
                   ? "Loading Strava Data"
@@ -632,7 +634,7 @@ export default function RunningPage() {
 
         {runs.length <= 1 && (
           <div className="mt-6 rounded-[2rem] border border-dashed border-white/10 bg-white/[0.02] px-6 py-8 text-center text-sm leading-7 text-zinc-500">
-            More run cards will appear here after a few synced activities are available.
+            No recent Strava activities were returned yet. Once live data is available, the latest sessions will appear here.
           </div>
         )}
       </section>
