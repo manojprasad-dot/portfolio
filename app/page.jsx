@@ -107,19 +107,19 @@ const certifications = [
   {
     title: "Penetration Testing",
     issuer: "SRM Valliammai Engineering College (Value Added Course)",
-    image: "/assets/images/blog-3.png",
+    image: "/assets/images/cert-pentest.png",
     href: null,
   },
   {
     title: "Generative AI Foundations Training Badge",
     issuer: "AWS Academy",
-    image: "/assets/images/blog-2.png",
+    image: "/assets/images/cert-aws-ai.png",
     href: "https://www.credly.com/badges/62cfddb4-44d3-4c81-b9e9-816869e02a4c",
   },
   {
     title: "Networking",
     issuer: "Cisco Networking Academy",
-    image: "/assets/images/blog-3.png",
+    image: "/assets/images/cert-networking.png",
     href: null,
   },
 ];
