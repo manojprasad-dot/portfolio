@@ -63,6 +63,7 @@ const projects = [
     image: "/assets/images/project-soc.png",
     description:
       "Full-stack cybersecurity platform for real-time threat monitoring and incident management. Implemented secure JWT authentication, role-based access control, rate limiting, intrusion logging, and interactive dashboards for security alerts and threat analysis.",
+    demo: "https://kovirx.vercel.app/",
     tech: "React, Node.js, Express, MongoDB, JWT, Docker",
   },
   {
@@ -72,6 +73,7 @@ const projects = [
     image: "/assets/images/project-pentest.png",
     description:
       "MSME-registered hyperlocal gig marketplace with secure authentication, JWT middleware, email verification, real-time dashboards, and cross-platform Android deployment using Capacitor.",
+    demo: "https://www.thehustlefy.app/",
     tech: "Node.js, Express, React, MongoDB, Firebase, Capacitor",
   },
   {
@@ -82,6 +84,7 @@ const projects = [
     description:
       "Browser extension combining machine learning with URL analysis to identify suspicious links and malicious patterns. Built with secure Flask backend featuring API protection, rate limiting, and CORS controls.",
     github: "https://github.com/manojprasad-dot/anti-phishing-detection",
+    demo: "https://phishguard26.netlify.app/",
     tech: "Python, Flask, JavaScript, Chrome Extension, Random Forest",
   },
 ];
