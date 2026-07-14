@@ -60,7 +60,7 @@ const projects = [
     title: "KovirX",
     subtitle: "Threat Detection & Security Operations Platform",
     tag: "Threat Detection",
-    image: "/assets/images/project-soc.png",
+    image: "/assets/images/kovirx.png",
     description:
       "Full-stack cybersecurity platform for real-time threat monitoring and incident management. Implemented secure JWT authentication, role-based access control, rate limiting, intrusion logging, and interactive dashboards for security alerts and threat analysis.",
     demo: "https://kovirx.vercel.app/",
@@ -70,7 +70,7 @@ const projects = [
     title: "Hustlefy",
     subtitle: "Job Matching Platform",
     tag: "Backend Development",
-    image: "/assets/images/project-pentest.png",
+    image: "/assets/images/hustlefy.png",
     description:
       "MSME-registered hyperlocal gig marketplace with secure authentication, JWT middleware, email verification, real-time dashboards, and cross-platform Android deployment using Capacitor.",
     demo: "https://www.thehustlefy.app/",
@@ -80,7 +80,7 @@ const projects = [
     title: "Phishguard",
     subtitle: "Anti-Phishing Extension",
     tag: "Application Security",
-    image: "/assets/images/project-threat.png",
+    image: "/assets/images/phishguard.png",
     description:
       "Browser extension combining machine learning with URL analysis to identify suspicious links and malicious patterns. Built with secure Flask backend featuring API protection, rate limiting, and CORS controls.",
     github: "https://github.com/manojprasad-dot/anti-phishing-detection",
