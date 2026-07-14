@@ -128,6 +128,8 @@ const achievements = [
 
 const languages = ["Tamil", "English"];
 
+// Updated: Resume with new cybersecurity analyst profile
+
 export default function HomePage() {
   return (
     <main className="relative overflow-hidden bg-[#050505] text-white">
