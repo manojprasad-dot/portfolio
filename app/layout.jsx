@@ -3,7 +3,7 @@ import './globals.css'
 export const metadata = {
   title: 'Manoj Prasad | Cybersecurity Portfolio',
   description:
-    'Cybersecurity portfolio for Manoj Prasad, featuring projects, certifications, and a performance-focused running dashboard.',
+    'Cybersecurity portfolio for Manoj Prasad, featuring projects, certifications, and leadership experience in cybersecurity and application security.',
 }
 
 export default function RootLayout({ children }) {

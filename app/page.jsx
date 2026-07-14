@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 const summary =
-  "Cybersecurity analyst with hands-on experience building secure applications, APIs, and real-world security projects. Skilled in Python, backend development, authentication, vulnerability assessment, and threat detection, with practical exposure to OWASP Top 10 risks, penetration testing tools, and incident response workflows.";
+  "Cybersecurity student with hands-on experience building secure applications, APIs, and real-world security projects. Skilled in Python, backend development, authentication, vulnerability assessment, and threat detection, with practical exposure to OWASP Top 10 risks, penetration testing tools, and incident response workflows. Strong interest in solving real-world cybersecurity challenges.";
 
 const profileCards = [
   {
@@ -87,14 +87,17 @@ const projects = [
 ];
 
 const skills = [
-  "Python Programming",
-  "Backend Development (FastAPI, Node.js, Express.js)",
-  "Burp Suite & Nmap",
-  "Wireshark",
+  "Python, HTML/CSS",
+  "Burp Suite, Nmap, Wireshark",
   "Git & Docker",
-  "OWASP Top 10",
-  "API Security",
-  "MySQL & MongoDB",
+  "FastAPI, Node.js, Express.js",
+  "MySQL Database",
+  "Kali Linux & Windows",
+  "OWASP Top 10 & Vulnerability Assessment",
+  "Penetration Testing & Threat Detection",
+  "Incident Response & Network Security",
+  "API Security & Role-Based Access Control",
+  "Authentication, Authorization & Encryption",
 ];
 
 const certifications = [
@@ -124,6 +127,23 @@ const achievements = [
   "10th Place, Kalachakra CTF – 24-hour National Cybersecurity Competition (10th of 250 teams)",
   "5th Place, WTF CTF 3.0 – Inter-College Cybersecurity Competition",
   "5th Place, OSDHack 2026 – National-level Applied AI & Machine Learning Hackathon",
+];
+
+const leadership = [
+  {
+    role: "Project Lead, Hustlefy",
+    description:
+      "Led the development of an MSME-registered hyperlocal gig marketplace from idea to prototype.",
+  },
+  {
+    role: "Team Leader, 0xTi CTF",
+    description:
+      "Led a team during a 24-hour CTF at Rajalakshmi Engineering College.",
+  },
+  {
+    role: "Member, Whitehatians Club",
+    description: "Active participant in cybersecurity-focused club activities.",
+  },
 ];
 
 const languages = ["Tamil", "English"];
@@ -167,13 +187,15 @@ export default function HomePage() {
               Contact
             </a>
           </nav>
-          <Link
-            href="/running"
-            className="inline-flex items-center gap-2 rounded-full border border-orange-500/40 bg-orange-500/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-orange-300 transition hover:border-orange-400 hover:bg-orange-500/20"
+          <a
+            href="/manoj_2_resume.pdf"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 rounded-full border border-blue-500/40 bg-blue-500/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-blue-300 transition hover:border-blue-400 hover:bg-blue-500/20"
           >
-            Running Dashboard
-            <ArrowRight size={14} />
-          </Link>
+            View Resume
+            <ExternalLink size={14} />
+          </a>
         </div>
       </header>
 
@@ -184,7 +206,7 @@ export default function HomePage() {
         <div className="relative z-10">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-400/20 bg-blue-500/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.25em] text-blue-200">
             <Shield size={14} />
-            Third-Year Cybersecurity Student
+            Cybersecurity Analyst
           </div>
           <h1 className="max-w-4xl text-5xl font-black uppercase leading-[0.92] tracking-[-0.04em] text-white md:text-7xl">
             Cybersecurity,
@@ -203,7 +225,7 @@ export default function HomePage() {
               <ArrowRight size={16} />
             </a>
             <a
-              href="/resume4pdf.pdf"
+              href="/manoj_2_resume.pdf"
               target="_blank"
               rel="noreferrer"
               className="inline-flex items-center gap-2 rounded-full border border-white/15 px-6 py-3 text-sm font-bold uppercase tracking-[0.18em] text-zinc-200 transition hover:border-orange-400 hover:text-white"
@@ -493,27 +515,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-8">
-        <div className="rounded-[2rem] border border-orange-500/20 bg-gradient-to-r from-orange-500/12 via-white/[0.03] to-blue-500/12 p-8 lg:flex lg:items-center lg:justify-between">
-          <div className="max-w-3xl">
-            <p className="text-xs font-semibold uppercase tracking-[0.28em] text-orange-300">
-              Beyond The Resume
-            </p>
-            <h2 className="mt-3 text-3xl font-black uppercase tracking-[-0.04em] text-white md:text-4xl">
-              Running dashboard as a discipline lens
-            </h2>
-            <p className="mt-4 leading-7 text-zinc-300">
-              The running page still adds a personal dimension to the portfolio by showing consistency, endurance, and how progress is measured over time outside academics and projects.
-            </p>
-          </div>
-          <div className="mt-6 lg:mt-0">
-            <Link
-              href="/running"
-              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold uppercase tracking-[0.18em] text-black transition hover:scale-[1.02]"
-            >
-              Open Running Page
-              <ArrowRight size={16} />
-            </Link>
+      <section id="leadership" className="mx-auto max-w-7xl px-6 py-8">
+        <div className="rounded-[2rem] border border-blue-500/20 bg-gradient-to-r from-blue-500/12 via-white/[0.03] to-blue-500/12 p-8">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-blue-300">
+            Leadership & Event Organization
+          </p>
+          <h2 className="mt-3 text-3xl font-black uppercase tracking-[-0.04em] text-white md:text-4xl">
+            Initiative & Team Coordination
+          </h2>
+          <div className="mt-8 grid gap-6 md:grid-cols-3">
+            {leadership.map((item) => (
+              <div
+                key={item.role}
+                className="rounded-2xl border border-white/10 bg-black/20 p-6"
+              >
+                <h3 className="text-lg font-bold text-white">{item.role}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-zinc-400">
+                  {item.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
