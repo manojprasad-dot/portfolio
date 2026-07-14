@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -151,7 +154,149 @@ const leadership = [
 
 const languages = ["Tamil", "English"];
 
-// Updated: Resume with new cybersecurity analyst profile
+// Interactive cybersecurity terminal simulation
+function Terminal() {
+  const [history, setHistory] = useState([
+    "MANOJ PRASAD CYBERSECURITY SANDBOX [Version 1.0.4]",
+    "(c) 2026 Manoj Prasad. All rights reserved.",
+    "",
+    "Type 'help' to see the list of available commands.",
+    ""
+  ]);
+  const [input, setInput] = useState("");
+  const [isScanning, setIsScanning] = useState(false);
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
+  }, [history]);
+
+  const handleCommand = async (cmd) => {
+    const trimmed = cmd.trim();
+    if (!trimmed) return;
+    
+    const newHistory = [...history, `manojprasad@sandbox:~$ ${trimmed}`];
+    setHistory(newHistory);
+    setInput("");
+
+    const parts = trimmed.toLowerCase().split(" ");
+    const command = parts[0];
+
+    if (command === "help") {
+      setHistory(prev => [
+        ...prev,
+        "Available commands:",
+        "  help      - Display this help message",
+        "  scan      - Run vulnerability & port scanner simulation",
+        "  alerts    - Fetch simulated real-time threat detection logs",
+        "  clear     - Clear the terminal screen",
+        ""
+      ]);
+    } else if (command === "clear") {
+      setHistory([]);
+    } else if (command === "scan") {
+      if (isScanning) {
+        setHistory(prev => [...prev, "[-] A scan is already in progress.", ""]);
+        return;
+      }
+      setIsScanning(true);
+      setHistory(prev => [...prev, "[~] Initializing Network Port Scan...", ""]);
+      
+      const scanLines = [
+        "[~] Probing active endpoints on subnet 192.168.1.0/24...",
+        "[+] Host detected: 192.168.1.45 (Linux SOC Server)",
+        "[~] Scanning top 1000 TCP ports...",
+        "[!] Warning: Port 22 (SSH) open - Version: OpenSSH 8.2p1",
+        "[!] Warning: Port 80 (HTTP) open - Version: Apache httpd 2.4.41",
+        "[+] Scan complete. 2 security warnings found.",
+        ""
+      ];
+
+      for (let i = 0; i < scanLines.length; i++) {
+        await new Promise(resolve => setTimeout(resolve, 600));
+        setHistory(prev => [...prev, scanLines[i]]);
+      }
+      setIsScanning(false);
+    } else if (command === "alerts") {
+      setHistory(prev => [
+        ...prev,
+        `[SOC ALERT] ${new Date().toLocaleTimeString()} - Malicious payload signature detected in HTTP POST body.`,
+        `[SOC ALERT] ${new Date().toLocaleTimeString()} - Blocked potential SQL injection attempt from 185.220.101.4.`,
+        `[SOC ALERT] ${new Date().toLocaleTimeString()} - SSH login brute-force attempt blocked on host 192.168.1.45.`,
+        ""
+      ]);
+    } else {
+      setHistory(prev => [
+        ...prev,
+        `Command not found: '${trimmed}'. Type 'help' for assistance.`,
+        ""
+      ]);
+    }
+  };
+
+  return (
+    <div className="mx-auto max-w-3xl rounded-xl border border-white/10 bg-black/60 shadow-2xl backdrop-blur overflow-hidden">
+      <div className="flex items-center justify-between bg-zinc-900/80 px-4 py-2 border-b border-white/5">
+        <div className="flex gap-2">
+          <div className="w-3 h-3 rounded-full bg-red-500/80" />
+          <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
+          <div className="w-3 h-3 rounded-full bg-green-500/80" />
+        </div>
+        <span className="text-xs font-mono text-zinc-400">manojprasad@cyber-sandbox:~</span>
+        <div className="w-12" />
+      </div>
+      <div 
+        ref={containerRef}
+        className="h-72 overflow-y-auto p-5 font-mono text-xs text-blue-400 bg-black/40 space-y-1.5 scrollbar-thin scrollbar-thumb-zinc-800"
+      >
+        {history.map((line, idx) => (
+          <div 
+            key={idx} 
+            className={
+              line.startsWith("manojprasad@sandbox") 
+                ? "text-white" 
+                : line.startsWith("[+") 
+                ? "text-emerald-400" 
+                : line.startsWith("[!") || line.startsWith("[SOC ALERT]")
+                ? "text-amber-400"
+                : line.startsWith("[-")
+                ? "text-rose-400"
+                : "text-zinc-300"
+            }
+          >
+            {line}
+          </div>
+        ))}
+        {!isScanning && (
+          <form 
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleCommand(input);
+            }}
+            className="flex items-center gap-1 mt-2 text-white"
+          >
+            <span className="text-blue-400">manojprasad@sandbox:~$</span>
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="flex-1 bg-transparent border-none outline-none focus:ring-0 font-mono text-xs text-white"
+              autoFocus
+              placeholder="type commands..."
+            />
+          </form>
+        )}
+        {isScanning && (
+          <div className="text-zinc-500 animate-pulse mt-2 font-mono text-xs">
+            Scanning in progress...
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
 
 export default function HomePage() {
   return (
@@ -378,6 +523,7 @@ export default function HomePage() {
                         href={project.github}
                         target="_blank"
                         rel="noreferrer"
+                        aria-label={`View ${project.title} source code on GitHub`}
                         className="inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm font-semibold text-zinc-200 transition hover:border-white/30"
                       >
                         <ArrowRight size={16} />
@@ -389,6 +535,7 @@ export default function HomePage() {
                         href={project.demo}
                         target="_blank"
                         rel="noreferrer"
+                        aria-label={`View ${project.title} live demo website`}
                         className="inline-flex items-center gap-2 rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-orange-400"
                       >
                         Live Demo
@@ -540,6 +687,21 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+      </section>
+
+      <section id="sandbox" className="mx-auto max-w-7xl px-6 py-8">
+        <div className="mb-10 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.28em] text-zinc-500">
+            Interactive Sandbox
+          </p>
+          <h2 className="mt-3 text-4xl font-black uppercase tracking-[-0.04em] text-white md:text-5xl">
+            Cybersecurity Terminal <span className="text-zinc-500">Simulation</span>
+          </h2>
+          <p className="mt-4 max-w-2xl mx-auto text-sm text-zinc-400">
+            Simulate a vulnerability scan, check network alerts, or query host information. Use commands like <strong>scan</strong> or <strong>alerts</strong> to interact.
+          </p>
+        </div>
+        <Terminal />
       </section>
 
       <section id="contact" className="mx-auto max-w-7xl px-6 py-20">

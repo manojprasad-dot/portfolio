@@ -7,6 +7,37 @@
   <title>Manoj Prasad A - Cybersecurity Portfolio</title>
   <link rel="stylesheet" href="style.css">
   <link rel="icon" href="assets/images/logo-removebg-preview.png" type="image/png">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "name": "Manoj Prasad A",
+    "primaryImageOfPage": "https://manojprasad.vercel.app/assets/images/hero-portrait.png",
+    "mainEntity": {
+      "@type": "Person",
+      "name": "Manoj Prasad A",
+      "jobTitle": "Cybersecurity Analyst",
+      "description": "Cybersecurity student with hands-on experience building secure applications, APIs, and real-world security projects. Skilled in Python, backend development, threat detection, and penetration testing.",
+      "url": "https://manojprasad.vercel.app",
+      "sameAs": [
+        "https://github.com/manojprasad-dot",
+        "https://linkedin.com/in/manoj-prasad-92b2322b7"
+      ],
+      "knowsAbout": [
+        "Cybersecurity",
+        "Penetration Testing",
+        "Threat Detection",
+        "Application Security",
+        "API Security",
+        "Python Development"
+      ],
+      "alumniOf": {
+        "@type": "EducationalOrganization",
+        "name": "SRM Valliammai Engineering College"
+      }
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -266,8 +297,8 @@
           <h3 class="case-card-title">PhishGuard - AI-Based Browser Anti-Phishing Extension</h3>
           <p class="case-card-desc">Developed PhishGuard, an AI-powered browser extension for real-time phishing detection using machine-learning-based URL and webpage analysis with instant security alerts.</p>
           <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-            <a class="case-card-link" href="https://github.com/manojprasad-dot/anti-phishing-detection" target="_blank" rel="noopener">View on GitHub</a>
-            <a class="case-card-link" href="https://phishguard26.netlify.app" target="_blank" rel="noopener">Live Demo</a>
+            <a class="case-card-link" href="https://github.com/manojprasad-dot/anti-phishing-detection" target="_blank" rel="noopener" aria-label="View PhishGuard source code on GitHub">View on GitHub</a>
+            <a class="case-card-link" href="https://phishguard26.netlify.app" target="_blank" rel="noopener" aria-label="View PhishGuard live demo website">Live Demo</a>
           </div>
         </div>
       </div>
@@ -280,7 +311,7 @@
           <h3 class="case-card-title">Hustlefy - Job Matching Platform</h3>
           <p class="case-card-desc">Designed a hyperlocal gig marketplace with a job-matching system that connects workers and employers based on skills and location.</p>
           <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-            <a class="case-card-link" href="https://www.thehustlefy.app/" target="_blank" rel="noopener">Live Demo</a>
+            <a class="case-card-link" href="https://www.thehustlefy.app/" target="_blank" rel="noopener" aria-label="View Hustlefy live demo website">Live Demo</a>
           </div>
         </div>
       </div>
@@ -293,7 +324,7 @@
           <h3 class="case-card-title">KovirX - Cybersecurity &amp; Botnet Detection Platform</h3>
           <p class="case-card-desc">Developed an AI-powered cybersecurity platform for real-time botnet and malicious traffic detection with monitoring and alert workflows.</p>
           <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-            <a class="case-card-link" href="https://kovirx.vercel.app/" target="_blank" rel="noopener">Live Demo</a>
+            <a class="case-card-link" href="https://kovirx.vercel.app/" target="_blank" rel="noopener" aria-label="View KovirX live demo website">Live Demo</a>
           </div>
         </div>
       </div>
@@ -370,6 +401,39 @@
           <p class="blog-card-excerpt">Fundamental networking architectures, IP addressing schemas, protocol suites (TCP/IP, DNS, HTTP/HTTPS), routing, and packet flow analysis.</p>
         </div>
       </article>
+    </div>
+  </div>
+</section>
+
+<section class="sandbox section-padding" id="sandbox" style="background: var(--bg-secondary); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="container">
+    <div class="section-header reveal text-center" style="margin-bottom: 48px;">
+      <p class="section-label" style="text-align: center;">// Sandbox</p>
+      <h2 class="section-title" style="text-align: center;">INTERACTIVE<br><span class="outline">TERMINAL</span></h2>
+      <p class="section-desc" style="max-width: 600px; margin: 24px auto 0; text-align: center; color: var(--text-secondary);">Simulate a vulnerability port scan, monitor firewall logs, or test basic cybersecurity commands. Type <strong>help</strong> to view options.</p>
+    </div>
+    
+    <div class="terminal-window reveal spotlight-card" style="max-width: 768px; margin: 0 auto; border-radius: 12px; border: 1px solid var(--border); background: rgba(0,0,0,0.6); overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.4);">
+      <div class="terminal-header" style="display: flex; justify-content: space-between; align-items: center; background: #161616; padding: 10px 18px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+        <div class="terminal-buttons" style="display: flex; gap: 8px;">
+          <span style="width: 10px; height: 10px; border-radius: 50%; background: #ff5f56; display: inline-block;"></span>
+          <span style="width: 10px; height: 10px; border-radius: 50%; background: #ffbd2e; display: inline-block;"></span>
+          <span style="width: 10px; height: 10px; border-radius: 50%; background: #27c93f; display: inline-block;"></span>
+        </div>
+        <span class="terminal-title" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">manojprasad@cyber-sandbox:~</span>
+        <div style="width: 46px;"></div>
+      </div>
+      <div class="terminal-body" id="terminalBody" style="padding: 24px; font-family: var(--font-mono); font-size: 0.75rem; color: #a9b7c6; height: 280px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; line-height: 1.5; background: rgba(0,0,0,0.3);">
+        <div class="terminal-line" style="color: var(--text-muted);">MANOJ PRASAD CYBERSECURITY SANDBOX [Version 1.0.4]</div>
+        <div class="terminal-line" style="color: var(--text-muted);">(c) 2026 Manoj Prasad. All rights reserved.</div>
+        <div class="terminal-line"></div>
+        <div class="terminal-line">Type 'help' to see the list of available commands.</div>
+        <div class="terminal-line"></div>
+      </div>
+      <form class="terminal-input-container" id="terminalForm" style="display: flex; align-items: center; gap: 8px; padding: 0 24px 24px; background: rgba(0,0,0,0.3);">
+        <span class="terminal-prompt" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); white-space: nowrap;">manojprasad@sandbox:~$</span>
+        <input type="text" id="terminalInput" style="flex: 1; background: transparent; border: none; outline: none; font-family: var(--font-mono); font-size: 0.75rem; color: #fff; padding: 0;" autocomplete="off" autofocus placeholder="type commands...">
+      </form>
     </div>
   </div>
 </section>

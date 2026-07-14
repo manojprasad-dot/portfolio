@@ -186,3 +186,91 @@ const wordObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 document.querySelectorAll('.word-reveal').forEach(el => wordObserver.observe(el));
 
+
+/* ===== TERMINAL SANDBOX ===== */
+const terminalForm = document.getElementById('terminalForm');
+const terminalInput = document.getElementById('terminalInput');
+const terminalBody = document.getElementById('terminalBody');
+
+if (terminalForm && terminalInput && terminalBody) {
+  let isScanning = false;
+
+  const appendLine = (text, className = '') => {
+    const line = document.createElement('div');
+    line.className = `terminal-line ${className}`;
+    line.innerHTML = text;
+    terminalBody.appendChild(line);
+    terminalBody.scrollTop = terminalBody.scrollHeight;
+  };
+
+  const handleCommand = async (cmd) => {
+    const trimmed = cmd.trim();
+    if (!trimmed) return;
+
+    appendLine(`manojprasad@sandbox:~$ ${trimmed}`, 'text-white');
+    terminalInput.value = '';
+
+    const parts = trimmed.toLowerCase().split(' ');
+    const command = parts[0];
+
+    if (command === 'help') {
+      appendLine('Available commands:', 'text-muted');
+      appendLine('  help      - Display this help message');
+      appendLine('  scan      - Run vulnerability & port scanner simulation');
+      appendLine('  alerts    - Fetch simulated real-time threat detection logs');
+      appendLine('  clear     - Clear the terminal screen');
+      appendLine('');
+    } else if (command === 'clear') {
+      terminalBody.innerHTML = '';
+    } else if (command === 'scan') {
+      if (isScanning) {
+        appendLine('[-] A scan is already in progress.', 'text-danger');
+        return;
+      }
+      isScanning = true;
+      terminalInput.disabled = true;
+      appendLine('[~] Initializing Network Port Scan...', 'text-warning');
+      appendLine('');
+
+      const scanLines = [
+        { text: '[~] Probing active endpoints on subnet 192.168.1.0/24...', color: '' },
+        { text: '[+] Host detected: 192.168.1.45 (Linux SOC Server)', color: 'text-success' },
+        { text: '[~] Scanning top 1000 TCP ports...', color: '' },
+        { text: '[!] Warning: Port 22 (SSH) open - Version: OpenSSH 8.2p1', color: 'text-warning' },
+        { text: '[!] Warning: Port 80 (HTTP) open - Version: Apache httpd 2.4.41', color: 'text-warning' },
+        { text: '[+] Scan complete. 2 security warnings found.', color: 'text-success' },
+        { text: '', color: '' }
+      ];
+
+      for (let i = 0; i < scanLines.length; i++) {
+        await new Promise(resolve => setTimeout(resolve, 600));
+        appendLine(scanLines[i].text, scanLines[i].color);
+      }
+      isScanning = false;
+      terminalInput.disabled = false;
+      terminalInput.focus();
+    } else if (command === 'alerts') {
+      const now = new Date().toLocaleTimeString();
+      appendLine(`[SOC ALERT] ${now} - Malicious payload signature detected in HTTP POST body.`, 'text-warning');
+      appendLine(`[SOC ALERT] ${now} - Blocked potential SQL injection attempt from 185.220.101.4.`, 'text-warning');
+      appendLine(`[SOC ALERT] ${now} - SSH login brute-force attempt blocked on host 192.168.1.45.`, 'text-warning');
+      appendLine('');
+    } else {
+      appendLine(`Command not found: '${trimmed}'. Type 'help' for assistance.`, 'text-danger');
+      appendLine('');
+    }
+  };
+
+  terminalForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!isScanning) {
+      handleCommand(terminalInput.value);
+    }
+  });
+
+  // Keep focus on input when clicking terminal
+  terminalBody.parentElement.addEventListener('click', () => {
+    if (!isScanning) terminalInput.focus();
+  });
+}
+
