@@ -13,37 +13,37 @@ import {
 } from "lucide-react";
 
 const summary =
-  "Third-year Cybersecurity student with a strong interest in cybersecurity, artificial intelligence, and software development. Skilled in Python, network security, and threat analysis, with hands-on experience building phishing detection and malicious-traffic monitoring projects.";
+  "Cybersecurity analyst with hands-on experience building secure applications, APIs, and real-world security projects. Skilled in Python, backend development, authentication, vulnerability assessment, and threat detection, with practical exposure to OWASP Top 10 risks, penetration testing tools, and incident response workflows.";
 
 const profileCards = [
   {
     title: "About Me",
-    body: "Passionate about solving real-world security challenges, learning emerging technologies, and building practical solutions that combine cybersecurity with AI-driven systems.",
+    body: "Cybersecurity student with hands-on experience in application security, API security, and threat detection. Strong interest in solving real-world cybersecurity challenges with practical exposure to penetration testing and incident response.",
   },
   {
     title: "Education",
-    body: "B.E. Cyber Security at SRM Valliammai Engineering College (2023-2027) with a 7.55 CGPA, plus XII at Jeeva Montessori Matric Hr. Sec. School with 81%.",
+    body: "B.E. Cyber Security at SRM Valliammai Engineering College (2023-2027) with a 7.24 CGPA.",
   },
   {
     title: "Core Strengths",
-    body: "Python, network security, threat analysis, Wireshark, Burp Suite Basics, Linux Basics, browser developer tools, and TCP/IP, DNS, HTTP/HTTPS fundamentals.",
+    body: "Python, backend development (FastAPI, Node.js, Express.js), authentication, OWASP Top 10, vulnerability assessment, penetration testing tools (Burp Suite, Nmap, Wireshark), Docker, and incident response workflows.",
   },
 ];
 
 const highlights = [
   { value: "3", label: "Projects" },
-  { value: "7.55", label: "College CGPA" },
-  { value: "2", label: "Certifications" },
+  { value: "7.24", label: "College CGPA" },
+  { value: "3", label: "Certifications" },
   { value: "1st", label: "Best CTF Finish" },
 ];
 
 const focusAreas = [
-  "Cybersecurity",
-  "Artificial Intelligence",
-  "Software Development",
-  "Threat Analysis",
-  "Network Security",
-  "Phishing Detection",
+  "Application Security",
+  "Vulnerability Assessment",
+  "Threat Detection",
+  "Backend Development",
+  "API Security",
+  "Penetration Testing",
 ];
 
 const education = [
@@ -51,75 +51,79 @@ const education = [
     title: "SRM Valliammai Engineering College",
     subtitle: "B.E. Cyber Security",
     meta: "2023-2027",
-    detail: "7.55 CGPA",
-  },
-  {
-    title: "Jeeva Montessori Matric Hr. Sec. School",
-    subtitle: "XII",
-    meta: "2023",
-    detail: "81%",
+    detail: "7.24 CGPA",
   },
 ];
 
 const projects = [
   {
-    title: "PhishGuard",
-    subtitle: "AI-Based Browser Anti-Phishing Extension",
-    tag: "Phishing Detection",
-    image: "/assets/images/project-threat.png",
+    title: "KovirX",
+    subtitle: "Threat Detection & Security Operations Platform",
+    tag: "Threat Detection",
+    image: "/assets/images/project-soc.png",
     description:
-      "An AI-powered browser extension for real-time phishing website detection using machine-learning-based URL and webpage analysis, with an alert system that warns users about malicious sites.",
-    github: "https://github.com/manojprasad-dot/anti-phishing-detection",
-    demo: "https://phishguard26.netlify.app",
+      "Full-stack cybersecurity platform for real-time threat monitoring and incident management. Implemented secure JWT authentication, role-based access control, rate limiting, intrusion logging, and interactive dashboards for security alerts and threat analysis.",
+    tech: "React, Node.js, Express, MongoDB, JWT, Docker",
   },
   {
     title: "Hustlefy",
     subtitle: "Job Matching Platform",
-    tag: "Software Development",
+    tag: "Backend Development",
     image: "/assets/images/project-pentest.png",
     description:
-      "A hyperlocal gig marketplace connecting workers with on-demand job opportunities through an efficient job-matching system based on skills and location.",
+      "MSME-registered hyperlocal gig marketplace with secure authentication, JWT middleware, email verification, real-time dashboards, and cross-platform Android deployment using Capacitor.",
+    tech: "Node.js, Express, React, MongoDB, Firebase, Capacitor",
   },
   {
-    title: "KovirX",
-    subtitle: "Cybersecurity & Botnet Detection Platform",
-    tag: "Threat Analysis",
-    image: "/assets/images/project-soc.png",
+    title: "Phishguard",
+    subtitle: "Anti-Phishing Extension",
+    tag: "Application Security",
+    image: "/assets/images/project-threat.png",
     description:
-      "An AI-powered cybersecurity platform for real-time botnet and malicious traffic detection using automated monitoring, alerts, and network traffic analysis.",
+      "Browser extension combining machine learning with URL analysis to identify suspicious links and malicious patterns. Built with secure Flask backend featuring API protection, rate limiting, and CORS controls.",
+    github: "https://github.com/manojprasad-dot/anti-phishing-detection",
+    tech: "Python, Flask, JavaScript, Chrome Extension, Random Forest",
   },
 ];
 
 const skills = [
   "Python Programming",
-  "Linux Basics",
+  "Backend Development (FastAPI, Node.js, Express.js)",
+  "Burp Suite & Nmap",
   "Wireshark",
-  "Burp Suite Basics",
-  "Browser Developer Tools",
-  "TCP/IP",
-  "DNS",
-  "HTTP/HTTPS",
+  "Git & Docker",
+  "OWASP Top 10",
+  "API Security",
+  "MySQL & MongoDB",
 ];
 
 const certifications = [
   {
-    title: "Full Stack Web Development",
-    issuer: "Next24tech",
+    title: "Penetration Testing",
+    issuer: "SRM Valliammai Engineering College (Value Added Course)",
     image: "/assets/images/blog-3.png",
     href: null,
   },
   {
     title: "Generative AI Foundations Training Badge",
-    issuer: "AWS Academy Graduate",
+    issuer: "AWS Academy",
     image: "/assets/images/blog-2.png",
     href: "https://www.credly.com/badges/62cfddb4-44d3-4c81-b9e9-816869e02a4c",
+  },
+  {
+    title: "Networking",
+    issuer: "Cisco Networking Academy",
+    image: "/assets/images/blog-3.png",
+    href: null,
   },
 ];
 
 const achievements = [
-  "Winner in CTF at Sai Ram Engineering College (2025) - 1st",
-  "Participated in CTF at Rajalakshmi Engineering College (2026) - 7th",
-  "Participated in WTF 3.0 - Hack The Box Chennai x SRM IST (2026) - 8th",
+  "Winner, INFYRA CTF'25 – National Level Cybersecurity Competition - 1st",
+  "4th Place, 0xTi CTF – 24-hour National Level Cybersecurity Competition",
+  "10th Place, Kalachakra CTF – 24-hour National Cybersecurity Competition (10th of 250 teams)",
+  "5th Place, WTF CTF 3.0 – Inter-College Cybersecurity Competition",
+  "5th Place, OSDHack 2026 – National-level Applied AI & Machine Learning Hackathon",
 ];
 
 const languages = ["Tamil", "English"];
